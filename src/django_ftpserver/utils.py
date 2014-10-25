@@ -55,6 +55,5 @@ def get_ftp_handler(handler):
         
     base_dir = getattr(settings, 'BASE_DIR', None)
     module = __import__(handler.rsplit('.', 1)[0], fromlist=[base_dir])
-    print module
     class_ = getattr(module, handler.rsplit('.', 1)[1], None)
     return class_

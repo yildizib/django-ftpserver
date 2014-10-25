@@ -110,7 +110,12 @@ class Command(BaseCommand):
         custom_tls_handler = utils.get_ftp_handler(utils.get_settings_value('FTPSERVER_CUSTOM_TLS_HANDLER'))
 
         if custom_tls_handler == None:
-            custom_tls_handler = handlers.TLS_FTPHandler
+            try:
+                from OpenSSL import SSL
+            except ImportError:
+                pass
+            else:
+                custom_tls_handler = handlers.TLS_FTPHandler
             
         # daemonize
         daemonize = options['daemonize'] \
